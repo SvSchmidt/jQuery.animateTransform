@@ -24,7 +24,7 @@
 		$($elem).animate({
 			"fake7":objTransform.scale[0],
 			"fake4":objTransform.rotate[0]
-		},0,function() { console.log("complete"); });
+		},0;
 		
 		$($elem).animate({
 			"fake1":_settings.x,
