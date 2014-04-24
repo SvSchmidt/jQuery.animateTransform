@@ -154,16 +154,11 @@
 			height:100px;
 		}
 		
-		img {
-			display:block;
-			border:none;
-			-webkit-transform:rotate(90deg);
-		}
 	</style>
 
 	<!--***JS***-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-	<script src="js/jQuery.animateText.js"></script>
+	<script src="js/jQuery.animateTransform.js"></script>
 	<script>
 		$(document).ready(function() {
 			$("input[type=button]").click(function() {
@@ -193,7 +188,7 @@ $(elem).animate({
 			</pre>
 		It will not work. jQuery is not able to animate non-numeric values.
 		</p>
-		<h1>Solution: <a href="https://github.com/SvSchmidt/jQuery.animateTransform">jquery.animateTransform.js</a> by Sven Schmidt</h1>
+		<h1>Solution: <a href="https://github.com/SvSchmidt/jQuery.animateTransform" target="_blank">jquery.animateTransform.js</a> by Sven Schmidt</h1>
 		<p>Example Code:</p>
 		<pre id="example">
 $("input[type=button]").click(function() {
