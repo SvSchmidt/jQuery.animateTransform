@@ -9,8 +9,7 @@
  * @link            http://portfolio.lifesetter.de
  * @version         1.0.0
  * @description     Use this plugin to animate CSS3 Transform values (translate, translate3d, rotate, skew, scale)
- * @Usage           $(elem).animate({ 
-                                    something:somevalue,
+ * @Usage           $(elem).animate({something:somevalue,
                                     transform: { 
                                         Transform-Values 
                                     }},duration,callback);
