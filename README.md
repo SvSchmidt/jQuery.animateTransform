@@ -11,7 +11,7 @@ $(elem).animate({
     x:100,
     y:-200,
     rotate:90
-  },2000);
+  }},2000);
 
 Visit http://projekte.lifesetter.de/jquery.animateTransform/ for a detailed documentation and an interactive testing-tool.
  
