@@ -8,7 +8,7 @@
  * @license         Feel free to use!
  * @link            http://projekte.lifesetter.de/jquery.animateTransform/
  * @version         1.0
- * @description     Use this plugin to animate objTransform3 transform-values (translate, translate3d, rotate, skew, scale)
+ * @description     Use this plugin to animate CSS3 transform-values (translate, translate3d, rotate, skew, scale)
  * @Usage           $(elem).animateTransform({x:...,y:...,z:...,skewX:...,skewY:...,rotate:...,scale:...duration:...,callback:function() {}});
  ******************************************/
 
