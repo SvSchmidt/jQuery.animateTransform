@@ -12,8 +12,8 @@
  * @Usage           $(elem).animate({ 
                                     something:somevalue,
                                     transform: { 
-                                      Transform-Values 
-									}},duration,callback);
+                                        Transform-Values 
+                                    }},duration,callback);
  ******************************************/
 
 (function($) {
