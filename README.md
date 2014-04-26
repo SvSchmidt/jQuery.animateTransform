@@ -14,3 +14,4 @@ $(elem).animate({
   },2000);
 
 Visit http://projekte.lifesetter.de/jquery.animateTransform/ for a detailed documentation and an interactive testing-tool.
+ 
