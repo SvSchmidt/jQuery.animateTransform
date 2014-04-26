@@ -15,7 +15,8 @@
 (function($) {
 	$.fn.animateTransform = function(settings) {
 		var objSettings = $.extend({},$.fn.animateTransform.defaultSettings,settings || {}),
-			vendorPrefix = (Array.prototype.slice.call(window.getComputedStyle(document.documentElement,"")).join("").match(/-(moz|webkit|ms)-/) || (styles.OLink === "" && ["","o"]))[0];
+			vendorPrefix = function(str) { return str.charAt(0).toUpperCase() + str.slice(1); }((Array.prototype.slice.call(window.getComputedStyle(document.documentElement,"")).join("").match(/-(moz|webkit|ms)-/) || (styles.OLink === "" && ["","o"]))[1]);
+
 		return this.each(function() {
 			var $elem = $(this),objSettings = $.extend({},$.fn.animateTransform.defaultSettings,settings || {}),
 				x=0,y=0,z=0,rotate=0,skewX=0,skewY=0,scale=0,translateLine,rotateLine,skewLine,scaleLine,propNum = 0,
@@ -47,7 +48,7 @@
 				(propNum == (5 || 6) && (skewLine = "skew(" + skewX + "deg," + skewY + "deg)"));
 				(propNum == 7 && (scale = fx.now) && ((objTransform.scale[0] <= objSettings.scale && scale > objTransform.scale[0]) || (objTransform.scale[0] > objSettings.scale && scale <= objTransform.scale[0])) && (scaleLine = "scale(" + scale + ")"));
 
-				$elem.css(vendorPrefix + "transform",
+				$elem.css(vendorPrefix + "Transform",
 					(translateLine || "") +  (rotateLine || "rotate(" + objTransform.rotate[0] + "deg)") + (skewLine || "") + (scaleLine || "scale(" + objTransform.scale[0] + ")"));
 			},duration:parseInt(objSettings.duration),complete:function(){objSettings.callback.call(this);}});
 		});
