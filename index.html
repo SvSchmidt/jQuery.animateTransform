@@ -164,9 +164,18 @@
 			$("input[type=button]").click(function() {
 				$(this).attr("disabled","disabled").val("Animation in progres...");
 				$("#example").html('$("img").animateTransform({\n\tx:' + $("#x").val() + ',y:' + $("#y").val() + ',z: ' + $("#z").val() + ',rotate:' + $("#rotate").val() + ',scale:' + $("#scale").val() + ',duration:' + $("#duration").val() + ',skewX:' + $("#skewX").val() + ',skewY:' + $("#skewY").val() + '\n});');
-				$("img").animateTransform({x:$("#x").val(),y:$("#y").val(),z:$("#z").val(),rotate:$("#rotate").val(),scale:$("#scale").val(),duration:$("#duration").val(),skewX:$("#skewX").val(),skewY:$("#skewY").val(),callback:function() {
-					$("input[type=button]").removeAttr("disabled").val("Click to animate image");
-				}});
+				$("img").animate({
+					opacity:0,
+					transform:{
+						scale:$("#scale").val(),
+						rotate:$("#rotate").val(),
+						x:$("#x").val(),
+						y:$("#y").val(),
+						z:$("#z").val(),
+						skewX:$("#skewX").val(),
+						skewY:$("#skewY").val()
+					}
+				},parseInt($("#duration").val()));
 			});
 		});
 	</script>
@@ -210,7 +219,7 @@ $("input[type=button]").click(function() {
 		<br />
 		<br />
 		<br />
-		<img id="eins" src="http://placekitten.com/500/500" alt="" /><br />
+		<img id="eins" src="http://placekitten.com/500/500" style="-webkit-transform:rotate(10deg);" alt="" /><br />
 
 	</section>
 </body>

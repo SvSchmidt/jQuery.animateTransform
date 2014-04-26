@@ -15,7 +15,7 @@
 (function($) {
 	$.fx.step["transform"] = function(fx) {
 
-		if(!fx.myInit) {
+		if(!fx.css3TransformInit) {
 			fx.startTime = $.now();
 			vendorPrefix = function(str) { return str.charAt(0).toUpperCase() + str.slice(1); }((Array.prototype.slice.call(window.getComputedStyle(document.documentElement,"")).join("").match(/-(moz|webkit|ms)-/) || (styles.OLink === "" && ["","o"]))[1]),
 			$elem = $(fx.elem),x=0,y=0,z=0,rotate=0,skewX=0,skewY=0,scale=0,propNum=0,now = fx.startTime,
@@ -33,22 +33,17 @@
 				z:+objTransform.translate[2]
 			};
 			
-			fx.myInit = true;
+			fx.css3TransformInit = true;
 		}
 		
-		now = $.now() - fx.startTime;
-		divisor = (now / fx.options.duration).toFixed(2);
+		divisor = ((Math.round(($.now() - fx.startTime) / 100) * 100) / fx.options.duration).toFixed(3);
 		rotateLine = "rotate(" + +(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor)) + "deg)";
 		scaleLine = "scale(" + +(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor)) + ")";
+		translateLine = "translate" + (Math.abs(fx.end.z) > 0 ? "3d" : "") + "(" + (+(fx.start.x + ((fx.end.x - fx.start.x) * divisor)) || 0) + "px," + (+(fx.start.y + ((fx.end.y - fx.start.y) * divisor)) || 0) + "px" + (Math.abs(fx.end.z)  > 0 ? ("," + (+(fx.start.z + ((fx.end.z - fx.start-z) * divisor)) || 0) + "px") : "") + ")";
+		skewLine = "skew(" + (+(fx.start.skewX + ((fx.end.skewX - fx.start.skewX) * divisor)) || 0) + "deg," + (+(fx.start.skewY + ((fx.end.skewY - fx.start.skewY) * divisor)) || 0) + "deg)";
+		console.log(skewLine);
 		
-	/*	(translateLine = "translate" + (fx.end.z > 0 ? "3d" : "") + "(" + (
-		(propNum < 4 && (translateLine = "translate" + (objSettings.z > 0 ? "3d" : "") + "(" + (x) + "px," + (y) + "px" + (objSettings.z > 0 ? "," + (z) + "px)" : ")")));
-		(propNum == 4 && (rotate = fx.now) && ((objTransform.rotate[0] <= objSettings.rotate && rotate > objTransform.rotate[0]) || (objTransform.rotate[0] > objSettings.rotate && rotate <= objTransform.rotate[0])) && (rotateLine = "rotate(" + rotate + "deg)"));		 
-		(propNum == 5 && (skewX = fx.now)) || (propNum == 6 && (skewY = fx.now));
-		(propNum == (5 || 6) && (skewLine = "skew(" + skewX + "deg," + skewY + "deg)"));
-		(propNum == 7 && (scale = fx.now) && ((objTransform.scale[0] <= objSettings.scale && scale > objTransform.scale[0]) || (objTransform.scale[0] > objSettings.scale && scale <= objTransform.scale[0])) && (scaleLine = "scale(" + scale + ")"));
-*/
-		$("#eins").css(vendorPrefix + "Transform",
-			(scaleLine || "scale(" + fx.start.scale + ")") + (rotateLine || "rotate(" + fx.start.scale + ")deg"));
+		$elem.css(vendorPrefix + "Transform",
+			(translateLine || "translate" + (fx.start.z > 0 ? "3d" : "") + (fx.start.x + "px," + fx.start.y + "px" + (fx.start.z > 0 ? fx.start.z + ",px" : "") + ")")) + (scaleLine || "scale(" + fx.start.scale + ")") + (rotateLine || "rotate(" + fx.start.scale + ")deg") + (skewLine || "skew(" + fx.start.skewX + "deg," + fx.start.skewY + "deg)"));
 	}
 })(jQuery);
