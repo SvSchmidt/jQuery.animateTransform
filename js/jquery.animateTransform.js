@@ -7,9 +7,13 @@
  * @copyright       Copyright (c) 2014 Sven Schmidt
  * @license         Feel free to use!
  * @link            http://portfolio.lifesetter.de
- * @version         1.0.0 beta 1
- * @description     Use this plugin to animate objTransform3 transform-values (translate, translate3d, rotate, skew, scale)
- * @Usage           $(elem).animate({transform { rotate:...; },duration,callback);
+ * @version         1.0.0
+ * @description     Use this plugin to animate CSS3 Transform values (translate, translate3d, rotate, skew, scale)
+ * @Usage           $(elem).animate({ 
+                                    something:somevalue,
+                                    transform: { 
+                                      Transform-Values 
+									}},duration,callback);
  ******************************************/
 
 (function($) {
@@ -41,7 +45,6 @@
 		scaleLine = "scale(" + +(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor)) + ")";
 		translateLine = "translate" + (Math.abs(fx.end.z) > 0 ? "3d" : "") + "(" + (+(fx.start.x + ((fx.end.x - fx.start.x) * divisor)) || 0) + "px," + (+(fx.start.y + ((fx.end.y - fx.start.y) * divisor)) || 0) + "px" + (Math.abs(fx.end.z)  > 0 ? ("," + (+(fx.start.z + ((fx.end.z - fx.start-z) * divisor)) || 0) + "px") : "") + ")";
 		skewLine = "skew(" + (+(fx.start.skewX + ((fx.end.skewX - fx.start.skewX) * divisor)) || 0) + "deg," + (+(fx.start.skewY + ((fx.end.skewY - fx.start.skewY) * divisor)) || 0) + "deg)";
-		console.log(skewLine);
 		
 		$elem.css(vendorPrefix + "Transform",
 			(translateLine || "translate" + (fx.start.z > 0 ? "3d" : "") + (fx.start.x + "px," + fx.start.y + "px" + (fx.start.z > 0 ? fx.start.z + ",px" : "") + ")")) + (scaleLine || "scale(" + fx.start.scale + ")") + (rotateLine || "rotate(" + fx.start.scale + ")deg") + (skewLine || "skew(" + fx.start.skewX + "deg," + fx.start.skewY + "deg)"));
