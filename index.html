@@ -132,12 +132,13 @@
 		
 		h1,
 		h2 {
-			margin:2% auto 1% auto;
-			font-size:1.2em;
+			margin:2.5% auto 3% auto;
+			font-size:1.3em;
 		}
 		
 		pre {
-			margin-top:1%;
+			margin-top:3%;
+			margin-bottom:3%;
 		}
 		
 		input[type=text] {
@@ -146,6 +147,7 @@
 		
 		label {
 			cursor:pointer;
+			line-height:2em;
 		}
 		
 		form {
@@ -154,6 +156,17 @@
 			height:100px;
 		}
 		
+		#right {
+			float:right;
+			width:46%;
+			padding-left:4%;
+		}
+		
+		#left {
+			float:left;
+			width:46%;
+			padding-right:4%;
+		}
 	</style>
 
 	<!--***JS***-->
@@ -162,10 +175,9 @@
 	<script>
 		$(document).ready(function() {
 			$("input[type=button]").click(function() {
-				$(this).attr("disabled","disabled").val("Animation in progres...");
-				$("#example").html('$("img").animateTransform({\n\tx:' + $("#x").val() + ',y:' + $("#y").val() + ',z: ' + $("#z").val() + ',rotate:' + $("#rotate").val() + ',scale:' + $("#scale").val() + ',duration:' + $("#duration").val() + ',skewX:' + $("#skewX").val() + ',skewY:' + $("#skewY").val() + '\n});');
+				$(this).attr("disabled","disabled").val("Animation in progress...");
+				$("#example").html('\t\$("img").animate({\n\t\ttransform:\n\t\t\t{scale:'+$("#scale").val()+',rotate:'+$("#rotate").val()+',x:'+$("#x").val()+',y:'+$("#y").val()+',z:'+$("#z").val()+',skewX:'+$("#skewX").val()+',skewY:'+$("#skewY").val()+'}\n\t\t},'+$("#duration").val()+');');
 				$("img").animate({
-					opacity:0,
 					transform:{
 						scale:$("#scale").val(),
 						rotate:$("#rotate").val(),
@@ -175,7 +187,9 @@
 						skewX:$("#skewX").val(),
 						skewY:$("#skewY").val()
 					}
-				},parseInt($("#duration").val()));
+				},parseInt($("#duration").val()),function() {
+					$("input[type=button]").removeAttr("disabled").val("Click to animate image");
+				});
 			});
 		});
 	</script>
@@ -185,42 +199,44 @@
 </head>
 <body>
 	<section id="page">
-	<h2>Problem: Animate CSS3 transform-values with jQuery</h2>
-		<p>
-			Situation: You cannot simply do something like
-			<pre>
-$(elem).animate({
-	"WebkitTransform":"transform(300px,200px)",
-	"MozTransform":"transform(300px,200px)",
-	"Transform":"transform(300px,200px)"
-},1000);
+		<section id="left">
+			<h2>Problem: Animate CSS3 transform-values with jQuery</h2>
+			<p>
+				Situation: You cannot simply do something like
+				<pre>
+	$(elem).animate({
+		"WebkitTransform":"transform(300px,200px)",
+		"MozTransform":"transform(300px,200px)",
+		"Transform":"transform(300px,200px)"
+	},1000);
+				</pre>
+			It will not work. jQuery is not able to animate non-numeric values.
+			</p>
+			<h1>Solution: <a href="https://github.com/SvSchmidt/jQuery.animateTransform" target="_blank">jquery.animateTransform.js</a> by Sven Schmidt</h1>
+			<p>Example Code:</p>
+			<pre id="example">
+	$("input[type=button]").click(function() {
+		$("img").animateTransform({x:690,y:-400,rotate:270,skewX:20,skewY:5,duration:1000});
+	});
 			</pre>
-		It will not work. jQuery is not able to animate non-numeric values.
-		</p>
-		<h1>Solution: <a href="https://github.com/SvSchmidt/jQuery.animateTransform" target="_blank">jquery.animateTransform.js</a> by Sven Schmidt</h1>
-		<p>Example Code:</p>
-		<pre id="example">
-$("input[type=button]").click(function() {
-	$("img").animateTransform({x:690,y:-400,rotate:270,skewX:20,skewY:5,duration:1000});
-});
-		</pre>
-		<h2>Try it</h2>
-		<form>
-			<label for="x">translateX: <input type="text" id="x" value="670" /></label>
-			<label for="y">translateY: <input type="text" id="y" value="-50" /></label>
-			<label for="z">translateZ: <input type="text" id="z" value="0" /></label>
-			<label for="skewX">skewX: <input type="text" id="skewX" value="0" /></label>
-			<label for="skewY">skewY: <input type="text" id="skewY" value="0" /></label>
-			<label for="rotate">rotate: <input type="text" id="rotate" value="90" /></label>
-			<label for="scale">scale: <input type="text" id="scale" value="1" /></label>
-			<label for="duration">duration: <input type="text" id="duration" value="3000" /></label><br /><br />
-			<input type="button" value="Click to animate image" /><br /><br />
-		</form><br />
-		<br />
-		<br />
-		<br />
-		<img id="eins" src="http://placekitten.com/500/500" style="-webkit-transform:rotate(10deg);" alt="" /><br />
-
+		</section>
+		<section id="right">
+			<h2>Try it</h2>
+			<form>
+				<label for="x">translateX: <input type="text" id="x" value="670" /></label>
+				<label for="y">translateY: <input type="text" id="y" value="-50" /></label>
+				<label for="z">translateZ: <input type="text" id="z" value="0" /></label>
+				<label for="skewX">skewX: <input type="text" id="skewX" value="0" /></label>
+				<label for="skewY">skewY: <input type="text" id="skewY" value="0" /></label>
+				<label for="rotate">rotate: <input type="text" id="rotate" value="90" /></label>
+				<label for="scale">scale: <input type="text" id="scale" value="1" /></label>
+				<label for="duration">duration: <input type="text" id="duration" value="3000" /></label><br /><br />
+				<input type="button" value="Click to animate image" /><br /><br />
+			</form><br />
+		</section>
+		<section style="clear:both">
+			<img id="eins" src="http://placekitten.com/500/500" style="-webkit-transform:rotate(10deg) translate(0,50px);" alt="" /><br />
+		</section>
 	</section>
 </body>
 </html>
