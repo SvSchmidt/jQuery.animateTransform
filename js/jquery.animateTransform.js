@@ -50,7 +50,10 @@
 
 				$elem.css(vendorPrefix + "Transform",
 					(translateLine || "") +  (rotateLine || "rotate(" + objTransform.rotate[0] + "deg)") + (skewLine || "") + (scaleLine || "scale(" + objTransform.scale[0] + ")"));
-			},duration:parseInt(objSettings.duration),complete:function(){objSettings.callback.call(this);}});
+			},duration:parseInt(objSettings.duration),complete:function() {
+					($.isFunction(objSettings.callback) && objSettings.callback.call(this));
+				}
+			});
 		});
 	}
 
