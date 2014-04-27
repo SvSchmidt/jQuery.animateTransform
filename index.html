@@ -223,19 +223,19 @@
 		<section id="right">
 			<h2>Try it</h2>
 			<form>
-				<label for="x">translateX: <input type="text" id="x" value="670" /></label>
+				<label for="x">translateX: <input type="text" id="x" value="630" /></label>
 				<label for="y">translateY: <input type="text" id="y" value="-50" /></label>
 				<label for="z">translateZ: <input type="text" id="z" value="0" /></label>
 				<label for="skewX">skewX: <input type="text" id="skewX" value="0" /></label>
 				<label for="skewY">skewY: <input type="text" id="skewY" value="0" /></label>
 				<label for="rotate">rotate: <input type="text" id="rotate" value="90" /></label>
-				<label for="scale">scale: <input type="text" id="scale" value="1" /></label>
+				<label for="scale">scale: <input type="text" id="scale" value="1.25" /></label>
 				<label for="duration">duration: <input type="text" id="duration" value="3000" /></label><br /><br />
 				<input type="button" value="Click to animate image" /><br /><br />
 			</form><br />
 		</section>
 		<section style="clear:both">
-			<img id="eins" src="http://placekitten.com/500/500" style="-webkit-transform:rotate(10deg) translate(0,50px);" alt="" /><br />
+			<img id="eins" src="http://placekitten.com/500/500" style="-webkit-transform:rotate(10deg) translate(0,50px); -moz-transform:rotate(10deg) translate(0,50px); -ms-transform:rotate(10deg) translate(0,50px); -o-transform:rotate(10deg) translate(0,50px); transform:rotate(10deg) translate(0,50px);" alt="" /><br />
 		</section>
 	</section>
 </body>
