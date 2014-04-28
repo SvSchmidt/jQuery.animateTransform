@@ -6,9 +6,9 @@ You cannot simply do something like
 
 ```javascript
 $("img").animate({
-    "WebkitTransform":"rotate(90deg",
-    "MozTransform":"rotate(90deg",
-    "Transform":"rotate(90deg"
+    "WebkitTransform":"rotate(90deg)",
+    "MozTransform":"rotate(90deg)",
+    "Transform":"rotate(90deg)"
 },1000);
 ```
 At the moment, jQuery is not able to animate CSS3 Transform Values like rotate, translate, scale.
@@ -24,7 +24,8 @@ $("img").animate({
     "Something":somevalue,
     "transform": {
         rotate:90,
-        scale:1.5
+        scale:1.5,
+        et cetera
     }
 },1000);
 ```
