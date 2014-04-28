@@ -1,14 +1,17 @@
-jQuery.animateTransform
+jQuery.animateTransform ($.animate-Hook)
 =======================
 
 Use jQuery.animateTransform.js to animate CSS3 Transform-Values (translate, translate3d, rotate, skew, scale). 
-The Plugin offers different settings (for the appropiate values, the duration) and also the possibility to add a callback.
+The Plugin is an extension for jQuery's animate-function, hooking into $.fx.step to animate the CSS3 Transform-values.
+That means you can simply do something like:
 
-For a more liquid respectively more beautiful experience it does not animate from the beginning each time but starts at
-the given values. That means:
-If your element is translated (100px,200px) and rotated (90deg) and you wish to rotate it further 90deg,
-the Plugin won't animate from 0deg to 180deg but from 90deg to 180deg while keeping the translate-values.
+$(elem).animate({
+  opacity:0.5,
+  transform: {
+    x:100,
+    y:-200,
+    rotate:90
+  }},2000);
 
-Of course the plugin supports jQuery-characteristic function-chaining ($(elem).animateTransform(settings).css()...).
-
-Visit http://projekte.lifesetter.de/jquery.animateTransform/ for a documentation and an interactive testing-tool.
+Visit http://projekte.lifesetter.de/jquery.animateTransform/ for a detailed documentation and an interactive testing-tool.
+ 
