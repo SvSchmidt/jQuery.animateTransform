@@ -7,7 +7,7 @@ That means you can simply do something like:
 
 ```javascript
 $(elem).animate({
-  opacity:0.5,
+  something:somevalue,
   transform: {
     x:100,
     y:-200,
@@ -15,5 +15,5 @@ $(elem).animate({
   }},2000);
 ```
 
-Visit http://projekte.lifesetter.de/jquery.animateTransform/ for a detailed documentation and an interactive testing-tool.
+Visit [my demo page](http://projekte.lifesetter.de/jquery.animateTransform/) for a detailed documentation and an interactive testing-tool.
  
