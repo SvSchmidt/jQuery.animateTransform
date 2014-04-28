@@ -1,6 +1,6 @@
-# jQuery.animateTransform ($.animate-Hook)
+## jQuery.animateTransform ($.animate-Hook)
 
-## Problem
+### Problem
 
 You cannot simply do something like
 
