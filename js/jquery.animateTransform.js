@@ -3,11 +3,11 @@
  *
  *
  * @author          Sven Schmidt
- * @Date            2014/04/26
+ * @Date            2014/04/28
  * @copyright       Copyright (c) 2014 Sven Schmidt
  * @license         Feel free to use!
  * @link            http://portfolio.lifesetter.de
- * @version         1.0.0
+ * @version         2.0.0 
  * @description     Use this plugin to animate CSS3 Transform values (translate, translate3d, rotate, skew, scale)
  * @Usage           $(elem).animate({
  *                      something:somevalue,
