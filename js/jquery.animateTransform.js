@@ -42,13 +42,15 @@
 		}
 		
 		divisor = ((Math.round(($.now() - fx.startTime) / 100) * 100) / fx.options.duration).toFixed(3);
-		rotateLine = "rotate(" + (+(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor)) || fx.start.rotate) + "deg)";
-		scaleLine = "scale(" + (+(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor)) || fx.start.scale) + ")";
+		rotateLine = "rotate(" + (+(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor))) + "deg)";
+		scaleLine = "scale(" + (+(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor))) + ")";
 		translateLine = "translate" + (Math.abs(fx.end.z) > 0 ? "3d" : "") + "(" + (+(fx.start.x + ((fx.end.x - fx.start.x) * divisor)) || fx.start.x) + "px," + (+(fx.start.y + ((fx.end.y - fx.start.y) * divisor)) || fx.start.y) + "px" + (Math.abs(fx.end.z)  > 0 ? ("," + (fx.start.z + ((fx.end.z - fx.start.z) * divisor) || fx.start.z) + "px") : "") + ")";
 		skewLine = "skew(" + (+(fx.start.skewX + ((fx.end.skewX - fx.start.skewX) * divisor)) || fx.start.skewX) + "deg," + (+(fx.start.skewY + ((fx.end.skewY - fx.start.skewY) * divisor)) || fx.start.skewY) + "deg)";
 
+		console.log(scaleLine);
+		
 		$elem.css(vendorPrefix + "Transform",
-			(translateLine || "translate" + (fx.start.z > 0 ? "3d" : "") + (fx.start.x + "px," + fx.start.y + "px" + (fx.start.z > 0 ? fx.start.z + ",px" : "") + ")")) + (scaleLine) + (rotateLine) + (skewLine || "skew(" + fx.start.skewX + "deg," + fx.start.skewY + "deg)"));
+			(translateLine || "translate" + (fx.start.z > 0 ? "3d" : "") + (fx.start.x + "px," + fx.start.y + "px" + (fx.start.z > 0 ? fx.start.z + ",px" : "") + ")")) + (fx.end.scale != fx.start.scale ? scaleLine : "scale(" + fx.start.scale + ")") + (fx.start.rotate != fx.end.rotate ? rotateLine : "rotate(" + fx.start.rotate + "deg)") + (skewLine || "skew(" + fx.start.skewX + "deg," + fx.start.skewY + "deg)"));
 	
 	}
 })(jQuery);
