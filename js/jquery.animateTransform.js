@@ -42,13 +42,28 @@
 		}
 		
 		divisor = ((Math.round(($.now() - fx.startTime) / 100) * 100) / fx.options.duration).toFixed(3);
-		rotateLine = "rotate(" + (+(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor))) + "deg)";
-		scaleLine = "scale(" + (+(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor))) + ")";
-		translateLine = "translate" + (Math.abs(fx.end.z) > 0 ? "3d" : "") + "(" + (fx.end.x ? (+(fx.start.x + ((fx.end.x - fx.start.x) * divisor))) : fx.start.x) + "px," + (fx.end.y ? (+(fx.start.y + ((fx.end.y - fx.start.y) * divisor))) : fx.start.y) + "px" + (Math.abs(fx.end.z)  > 0 ? ("," + (fx.start.z + ((fx.end.z - fx.start.z) * divisor) || fx.start.z) + "px") : "") + ")";
-		skewLine = "skew(" + (fx.end.skewX ? +(fx.start.skewX + ((fx.end.skewX - fx.start.skewX) * divisor)) : fx.start.skewX) + "deg," + (fx.end.skewY ? +(fx.start.skewY + ((fx.end.skewY - fx.start.skewY) * divisor)) : fx.start.skewY) + "deg)";
+		fx.now = {
+			"rotate":(+(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor))),
+			"scale":(+(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor))),
+			"translate": {
+				"bIs3d":(Math.abs(fx.end.z) != Math.abs(fx.start.z)),
+				"x":(fx.end.x ? (+(fx.start.x + ((fx.end.x - fx.start.x) * divisor))) : fx.start.x),
+				"y":(fx.end.y ? (+(fx.start.y + ((fx.end.y - fx.start.y) * divisor))) : fx.start.y),
+				"z":(fx.end.z ? (+(fx.start.z + ((fx.end.z - fx.start.z) * divisor))) : fx.end.z)
+			},
+			"skew": {
+				"x":(fx.end.skewX ? +(fx.start.skewX + ((fx.end.skewX - fx.start.skewX) * divisor)) : fx.start.skewX),
+				"y":(fx.end.skewY ? +(fx.start.skewY + ((fx.end.skewY - fx.start.skewY) * divisor)) : fx.start.skewY)
+			}
+		
+		}
 
 		$elem.css(vendorPrefix + "Transform",
-			(translateLine || "translate" + (fx.start.z > 0 ? "3d" : "") + (fx.start.x + "px," + fx.start.y + "px" + (fx.start.z > 0 ? fx.start.z + ",px" : "") + ")")) + (fx.end.scale ? scaleLine : "scale(" + fx.start.scale + ")") + (fx.end.rotate ? rotateLine : "rotate(" + fx.start.rotate + "deg)") + (skewLine || "skew(" + fx.start.skewX + "deg," + fx.start.skewY + "deg)"));
+			("translate" + (fx.now.translate.bIs3d ? "3d" : "") + "(" + fx.now.translate.x + "px," + fx.now.translate.y + "px" + (fx.now.translate.bIs3d ? ("," + fx.now.translate.z + "px") : "") + ")") +
+			("rotate(" + (fx.now.rotate) + "deg)") +
+			("scale(" + (fx.now.scale) + ")") +
+			("skew(" + (fx.now.skew.x) + "deg," + (fx.now.skew.y) + "deg)")
+		)
 	
 	}
 })(jQuery);
