@@ -22,13 +22,15 @@
 		if(!fx.css3TransformInit) {
 			fx.$elem = $(fx.elem),fx.startTime = $.now(),
 			vendorPrefix = (typeof vendorPrefix === "undefined" ? function(str) { return str.charAt(0).toUpperCase() + str.slice(1); }((Array.prototype.slice.call(window.getComputedStyle(document.documentElement,"")).join("").match(/-(moz|webkit|ms)-/) || (styles.OLink === "" && ["","o"]))[1]) : vendorPrefix),
-			objTransform = $.extend({},("    " + (fx.$elem[0].style.WebkitTransform || fx.$elem[0].style.MozTransform || fx.$elem[0].style.OTransform || fx.$elem[0].style.MSTransform || fx.$elem[0].style.Transform || " ").replace(new RegExp("\\, ","g"),",")).split(" "),"rotate(0deg) scale(1) translate(0px,0px) skew(0deg,0deg)".replace(new RegExp("\\, ","g"),",").split(" "));	
+			objTransform = $.extend({},("    " + (fx.$elem[0].style.WebkitTransform || fx.$elem[0].style.MozTransform || fx.$elem[0].style.OTransform || fx.$elem[0].style.MSTransform || fx.$elem[0].style.Transform || " ").replace(new RegExp("\\, ","g"),",")).split(" "),"rotateX(0deg) rotateY(0deg) rotate(0deg) scale(1) translate(0px,0px) skew(0deg,0deg)".replace(new RegExp("\\, ","g"),",").split(" "));	
 
 			for(v in objTransform) if(objTransform[v]) objTransform[objTransform[v].match(/([a-zA-Z]{0,10})/)[0].replace("3d","")] = objTransform[v].match(/[^()\s]+(?=,|\))/g)[0].replace(new RegExp("deg","g"),"").replace(new RegExp("px","g"),"").split(",") || [0,0,0];
 			
 			fx.start = {
 				scale:+objTransform.scale[0],
 				rotate:+objTransform.rotate[0],
+				rotateX:+objTransform.rotateX[0],
+				rotateY:+objTransform.rotateY[0],
 				skewX:+objTransform.skew[0],
 				skewY:+objTransform.skew[1],
 				x:+objTransform.translate[0],
@@ -41,7 +43,11 @@
 
 		divisor = ((Math.round(($.now() - fx.startTime) / 100) * 100) / fx.options.duration).toFixed(3);
 		fx.now = {
-			"rotate":(+(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor))),
+			"rotate": {
+				"x":(fx.end.rotateX ? +(fx.start.rotateX + ((fx.end.rotateX - fx.start.rotateX) * divisor)) : fx.start.rotateX),
+				"y":(fx.end.rotateY ? +(fx.start.rotateY + ((fx.end.rotateY - fx.start.rotateY) * divisor)) : fx.start.rotateY),
+				"both":(fx.end.rotate ? +(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor)) : fx.start.rotate)
+			},
 			"scale":(fx.end.scale ? +(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor)) : fx.start.scale),
 			"translate": {
 				"bIs3d":(Math.abs(fx.end.z) != Math.abs(fx.start.z)),
@@ -56,9 +62,13 @@
 		
 		}
 
+		console.log(fx.now);
+
 		fx.$elem.css(vendorPrefix + "Transform",
 			("translate" + (fx.now.translate.bIs3d ? "3d" : "") + "(" + fx.now.translate.x + "px," + fx.now.translate.y + "px" + (fx.now.translate.bIs3d ? ("," + fx.now.translate.z + "px") : "") + ")") +
-			("rotate(" + (fx.now.rotate) + "deg)") +
+			((fx.now.rotate.both && !fx.now.rotate.x && !fx.now.rotate.y) ? "rotate(" + (fx.now.rotate.both) + "deg)" : "") +
+			(fx.now.rotate.x ? "rotateX(" + (fx.now.rotate.x) + "deg)" : "") +
+			(fx.now.rotate.y ? "rotateY(" + (fx.now.rotate.y) + "deg)" : "") +		
 			("scale(" + (fx.now.scale) + ")") +
 			("skew(" + (fx.now.skew.x) + "deg," + (fx.now.skew.y) + "deg)")
 		)
