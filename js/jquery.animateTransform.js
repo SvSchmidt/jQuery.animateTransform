@@ -38,16 +38,16 @@
 
 			fx.css3TransformInit = true;
 		}
-		
+
 		divisor = ((Math.round(($.now() - fx.startTime) / 100) * 100) / fx.options.duration).toFixed(3);
 		fx.now = {
 			"rotate":(+(fx.start.rotate + ((fx.end.rotate - fx.start.rotate) * divisor))),
-			"scale":(+(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor))),
+			"scale":(fx.end.scale ? +(fx.start.scale + ((fx.end.scale - fx.start.scale) * divisor)) : fx.start.scale),
 			"translate": {
 				"bIs3d":(Math.abs(fx.end.z) != Math.abs(fx.start.z)),
 				"x":(fx.end.x ? (+(fx.start.x + ((fx.end.x - fx.start.x) * divisor))) : fx.start.x),
 				"y":(fx.end.y ? (+(fx.start.y + ((fx.end.y - fx.start.y) * divisor))) : fx.start.y),
-				"z":(fx.end.z ? (+(fx.start.z + ((fx.end.z - fx.start.z) * divisor))) : fx.end.z)
+				"z":(fx.end.z ? (+(fx.start.z + ((fx.end.z - fx.start.z) * divisor))) : fx.start.z)
 			},
 			"skew": {
 				"x":(fx.end.skewX ? +(fx.start.skewX + ((fx.end.skewX - fx.start.skewX) * divisor)) : fx.start.skewX),
@@ -62,6 +62,5 @@
 			("scale(" + (fx.now.scale) + ")") +
 			("skew(" + (fx.now.skew.x) + "deg," + (fx.now.skew.y) + "deg)")
 		)
-	
 	}
 })(jQuery);
